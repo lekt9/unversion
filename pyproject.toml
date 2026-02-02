@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "unversion"
+version = "0.1.0"
+description = "Simple prompt versioning for AI applications. Store prompts in JSON, track usage, no hardcoding."
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Unreel", email = "hello@unreel.so" }
+]
+keywords = ["prompts", "ai", "llm", "versioning", "observability", "langfuse"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+observer = ["langfuse>=2.0.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+all = ["unversion[observer,dev]"]
+
+[project.urls]
+Homepage = "https://github.com/unreelai/unversion"
+Documentation = "https://github.com/unreelai/unversion#readme"
+Repository = "https://github.com/unreelai/unversion"
+Issues = "https://github.com/unreelai/unversion/issues"
+
+[project.scripts]
+unversion = "unversion.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/unversion"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/examples",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
